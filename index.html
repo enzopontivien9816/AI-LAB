@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI LAB FREE — Learn & Create</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0b12;--panel:#14141e;--panel2:#191925;--border:#292938;--purple:#9a78ff;--blue:#719bff;--text:#f3f2fb;--muted:#9998ad}
+body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#101019;border-right:1px solid var(--border);padding:25px 16px;position:fixed;top:0;bottom:0;overflow:auto}
+.logo{font-size:23px;font-weight:800;letter-spacing:1px;padding:5px 10px 30px}
+.logo span{color:var(--purple)}
+.free{font-size:10px;background:#252039;color:#bba6ff;border-radius:20px;padding:5px 8px;margin-left:5px}
+.nav-label{color:#67677c;font-size:10px;letter-spacing:1.5px;padding:15px 10px 9px}
+.nav button{width:100%;text-align:left;background:none;border:0;color:#a3a2b5;padding:12px 13px;border-radius:10px;margin:3px 0;font-size:13px}
+.nav button:hover,.nav button.active{background:#242137;color:#c5b4ff}
+.nav button.active{box-shadow:inset 2px 0 var(--purple)}
+.nav button span{display:inline-block;width:26px}
+.sidebar-bottom{margin-top:30px;border:1px solid var(--border);border-radius:12px;padding:15px}
+.sidebar-bottom p{font-size:12px;color:var(--muted);line-height:1.6}
+.sidebar-bottom b{display:block;font-size:13px;margin-bottom:7px}
+.main{margin-left:245px;width:calc(100% - 245px);min-height:100vh}
+.topbar{height:68px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 35px}
+.topbar small{color:var(--muted)}
+.avatar{background:linear-gradient(135deg,#8564ec,#466ee5);width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:12px;font-weight:bold}
+.content{max-width:1300px;margin:auto;padding:30px 35px 65px}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:10px 0 27px}
+.welcome h1{font-size:29px;letter-spacing:-1px}
+.welcome p{color:var(--muted);font-size:13px;margin-top:8px}
+.hero{border:1px solid #34294e;border-radius:20px;padding:35px;background:radial-gradient(circle at 85% 20%,#3a2561,transparent 45%),linear-gradient(120deg,#171529,#12121e);position:relative;overflow:hidden}
+.hero:after{content:"✦";position:absolute;right:12%;top:15%;font-size:120px;color:#a78bfa13}
+.hero .eyebrow{color:#b9a5ff;font-size:11px;letter-spacing:1.6px;margin-bottom:15px}
+.hero h2{font-size:32px;line-height:1.25;max-width:540px}
+.hero p{color:#aaa9be;font-size:13px;line-height:1.7;margin-top:12px;max-width:480px}
+.primary{border:0;border-radius:10px;padding:12px 17px;background:linear-gradient(120deg,#8664e9,#6c83fa);color:white;font-weight:700;font-size:12px}
+.primary:hover{filter:brightness(1.1)}
+.hero .primary{margin-top:22px}
+.section{margin-top:32px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.section-head h2{font-size:18px}
+.section-head p{color:var(--muted);font-size:12px;margin-top:5px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:19px;transition:.2s}
+.card:hover{border-color:#51427b;transform:translateY(-2px)}
+.card-icon{height:43px;width:43px;border-radius:13px;background:#252039;display:grid;place-items:center;font-size:21px;margin-bottom:15px}
+.card h3{font-size:14px;margin-bottom:8px}
+.card p{font-size:12px;color:var(--muted);line-height:1.65;min-height:40px}
+.card-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:17px}
+.pill{font-size:10px;padding:6px 9px;border-radius:20px;background:#222132;color:#b7a6ff}
+.text-btn{border:0;background:none;color:#b5a4ff;font-size:12px}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.course{border:1px solid var(--border);background:var(--panel);border-radius:15px;overflow:hidden;cursor:pointer;transition:.2s}
+.course:hover{transform:translateY(-3px);border-color:#63529b}
+.course-art{height:120px;display:flex;align-items:center;justify-content:center;font-size:45px;background:linear-gradient(135deg,#242043,#181b34)}
+.course:nth-child(2) .course-art{background:linear-gradient(135deg,#183b49,#1c2136)}
+.course:nth-child(3) .course-art{background:linear-gradient(135deg,#442642,#20233e)}
+.course-body{padding:16px}
+.course-body h3{font-size:13px;margin:9px 0}
+.course-body p{color:var(--muted);font-size:11px;line-height:1.6}
+.course-meta{display:flex;justify-content:space-between;color:#aaa9bd;font-size:10px;margin-top:14px}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.tool{display:flex;gap:15px;align-items:center;border:1px solid var(--border);background:var(--panel);border-radius:15px;padding:17px}
+.tool-icon{width:43px;height:43px;background:#252039;border-radius:12px;display:grid;place-items:center;font-size:21px}
+.tool h3{font-size:13px;margin-bottom:5px}
+.tool p{font-size:11px;color:var(--muted)}
+.search{width:100%;padding:12px;background:#14141e;border:1px solid var(--border);border-radius:10px;color:white;outline:none;margin:15px 0}
+.search:focus{border-color:var(--purple)}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 17px}
+.filter{background:#161620;border:1px solid var(--border);color:#aaa9be;padding:8px 13px;border-radius:20px;font-size:11px}
+.filter.active{background:#29213f;border-color:#8f75ee;color:#c5b5ff}
+.view{display:none}
+.view.active{display:block;animation:fade .3s}
+.lesson-list{display:grid;gap:12px}
+.lesson-item{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px}
+.lesson-item h3{font-size:14px;margin-bottom:8px}
+.lesson-item p{font-size:12px;color:var(--muted);line-height:1.7}
+.studio{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:22px}
+.studio label{font-size:12px;display:block;margin:17px 0 8px}
+.studio textarea,.studio select{width:100%;background:#0e0e17;color:white;border:1px solid var(--border);border-radius:10px;padding:13px;outline:none}
+.studio textarea{min-height:110px;resize:vertical}
+.studio textarea:focus,.studio select:focus{border-color:var(--purple)}
+.studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.preview{margin-top:20px;min-height:240px;border:1px dashed #38364b;border-radius:14px;display:grid;place-items:center;padding:15px;text-align:center;background:#101018}
+.preview img{max-width:100%;max-height:430px;border-radius:10px}
+.preview-placeholder{color:var(--muted);font-size:12px;line-height:1.8}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px}
+.prompt-result{white-space:pre-wrap;background:#101018;border:1px solid var(--border);border-radius:12px;padding:16px;font-size:13px;line-height:1.7;color:#d4d1e6;margin-top:15px}
+footer{border-top:1px solid var(--border);padding:25px;text-align:center;color:#77778c;font-size:11px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
+.modal.open{display:flex}
+.modal-box{max-width:600px;width:100%;max-height:85vh;overflow:auto;background:#161622;border:1px solid #39354e;border-radius:18px;padding:25px}
+.modal-box h2{margin:12px 0;font-size:20px}
+.modal-box p,.modal-box li{font-size:13px;color:#b6b5c9;line-height:1.8}
+.modal-box h3{font-size:14px;margin:20px 0 10px;color:#c3b3ff}
+.modal-box ul{padding-left:20px}
+.modal-close{float:right;background:#2a2938;border:0;color:white;padding:8px 12px;border-radius:8px}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:1000px){.cards,.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){
+.sidebar{width:68px;padding:17px 8px}
+.logo{font-size:16px;padding:8px 3px 25px}
+.logo span,.free,.nav-label,.nav button .label,.sidebar-bottom{display:none}
+.nav button{text-align:center;padding:14px 5px;font-size:18px}
+.nav button span:first-child{width:auto}
+.main{margin-left:68px;width:calc(100% - 68px)}
+.topbar{padding:0 16px}
+.content{padding:22px 15px}
+.welcome h1{font-size:23px}
+.hero{padding:25px}
+.hero h2{font-size:25px}
+.cards,.course-grid,.tools{grid-template-columns:1fr}
+}
+@media(max-width:420px){.studio-grid{grid-template-columns:1fr}.stats{gap:15px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+<div class="logo">AI <span>LAB</span><span class="free">FREE</span></div>
+<div class="nav-label">MENU PRINCIPAL</div>
+<nav class="nav">
+<button class="active" onclick="showView('dashboard',this)"><span>⌂</span><span class="label"> Dashboard</span></button>
+<button onclick="showView('academy',this)"><span>📚</span><span class="label"> Academy</span></button>
+<button onclick="showView('image',this)"><span>🎨</span><span class="label"> Image Studio</span></button>
+<button onclick="showView('prompts',this)"><span>✍️</span><span class="label"> Prompt Lab</span></button>
+<button onclick="showView('projects',this)"><span>🚀</span><span class="label"> Projects</span></button>
+<button onclick="showView('tools',this)"><span>🧰</span><span class="label"> AI Tools</span></button>
+</nav>
+<div class="sidebar-bottom">
+<b>✨ Espace gratuit</b>
+<p>Apprends et développe ta créativité avec l'intelligence artificielle.</p>
+</div>
+</aside>
+
+<div class="main">
+<div class="topbar">
+<small>AI LAB / <span id="breadcrumb">Dashboard</span></small>
+<div class="avatar">AI</div>
+</div>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<section class="view active" id="dashboard">
+<div class="welcome">
+<div><h1>Bienvenue dans AI LAB 👋</h1><p>Ton espace pour apprendre, explorer et créer avec l'IA.</p></div>
+</div>
+<div class="hero">
+<div class="eyebrow">LE LABORATOIRE DE CRÉATIVITÉ</div>
+<h2>Imagine. Apprends.<br><span style="color:#b59aff">Crée sans limites.</span></h2>
+<p>Découvre les outils d'intelligence artificielle, apprends à les maîtriser et transforme tes idées en projets.</p>
+<button class="primary" onclick="showView('image')">✨ Ouvrir Image Studio</button>
+</div>
+
+<div class="section">
+<div class="section-head"><div><h2>Explorer le laboratoire</h2><p>Choisis ton espace de création.</p></div></div>
+<div class="cards">
+<div class="card" onclick="showView('academy')"><div class="card-icon">📚</div><h3>AI Academy</h3><p>Apprends l'intelligence artificielle depuis les bases.</p><div class="card-bottom"><span class="pill">Cours gratuits</span><button class="text-btn">Explorer →</button></div></div>
+<div class="card" onclick="showView('image')"><div class="card-icon">🎨</div><h3>Image Studio</h3><p>Découvre comment imaginer et préparer des images IA.</p><div class="card-bottom"><span class="pill">Création</span><button class="text-btn">Ouvrir →</button></div></div>
+<div class="card" onclick="showView('prompts')"><div class="card-icon">✍️</div><h3>Prompt Lab</h3><p>Construis des descriptions plus précises pour tes IA.</p><div class="card-bottom"><span class="pill">Prompts</span><button class="text-btn">Explorer →</button></div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-head"><div><h2>Parcours d'apprentissage</h2><p>Des chemins pour progresser étape par étape.</p></div></div>
+<div class="course-grid">
+<div class="course" onclick="openCourse('beginner')"><div class="course-art">🧠</div><div class="course-body"><span class="pill">DÉBUTANT</span><h3>Comprendre l'IA</h3><p>Les fondamentaux, les modèles et le vocabulaire.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" onclick="openCourse('imagecourse')"><div class="course-art">🖼️</div><div class="course-body"><span class="pill">CRÉATIVITÉ</span><h3>L'art de l'image IA</h3><p>Composition, styles et descriptions créatives.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" onclick="openCourse('social')"><div class="course-art">📱</div><div class="course-body"><span class="pill">CONTENU</span><h3>Créer pour les réseaux</h3><p>Idées, storytelling et identité visuelle.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+</div>
+</div>
+</section>
+
+<!-- ACADEMY -->
+<section class="view" id="academy">
+<div class="welcome"><div><h1>AI Academy 📚</h1><p>Des cours gratuits pour apprendre à ton rythme.</p></div></div>
+<input class="search" id="courseSearch" placeholder="🔎 Rechercher un cours...">
+<div class="course-grid" id="academyGrid">
+<div class="course" data-search="comprendre intelligence artificielle débutant"><div class="course-art">🧠</div><div class="course-body"><span class="pill">DÉBUTANT</span><h3>Comprendre l'intelligence artificielle</h3><p>Découvre ce qu'est l'IA, son fonctionnement et ses limites.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" data-search="prompt écrire description texte"><div class="course-art">✍️</div><div class="course-body"><span class="pill">DÉBUTANT</span><h3>Maîtriser les prompts</h3><p>Apprends à donner des instructions précises et utiles.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" data-search="image art style composition visuel"><div class="course-art">🎨</div><div class="course-body"><span class="pill">CRÉATIVITÉ</span><h3>Créer des images IA</h3><p>Explore les styles, les compositions et les idées.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" data-search="video montage storytelling cinéma"><div class="course-art">🎬</div><div class="course-body"><span class="pill">VIDÉO</span><h3>Découvrir la vidéo IA</h3><p>Scènes, mouvements de caméra et narration.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" data-search="réseaux sociaux tiktok shorts youtube contenu"><div class="course-art">📱</div><div class="course-body"><span class="pill">RÉSEAUX</span><h3>Créer du contenu social</h3><p>Planifie des idées de contenu et développe un univers.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+<div class="course" data-search="éthique sécurité limites vérifier informations"><div class="course-art">🛡️</div><div class="course-body"><span class="pill">ESSENTIEL</span><h3>Utiliser l'IA avec recul</h3><p>Vérifier, protéger les données et reconnaître les erreurs.</p><div class="course-meta"><span>4 leçons</span><span>Gratuit</span></div></div></div>
+</div>
+</section>
+
+<!-- IMAGE STUDIO -->
+<section class="view" id="image">
+<div class="welcome"><div><h1>Image Studio 🎨</h1><p>Prépare tes créations et explore les univers visuels.</p></div></div>
+<div class="studio">
+<label for="imagePrompt">DÉCRIS TON IDÉE</label>
+<textarea id="imagePrompt" placeholder="Ex : Une ville futuriste au coucher du soleil, des lumières violettes, style cinématique..."></textarea>
+<div class="studio-grid">
+<div><label>STYLE</label><select id="imageStyle"><option>Artistique</option><option>Photorealiste</option><option>Anime</option><option>3D</option><option>Cinématique</option><option>Fantasy</option><option>Pixel Art</option></select></div>
+<div><label>FORMAT</label><select id="imageFormat"><option value="square">Carré (1:1)</option><option value="portrait">Portrait (9:16)</option><option value="landscape">Paysage (16:9)</option></select></div>
+</div>
+<button class="primary" style="margin-top:18px" onclick="makePreview()">✨ Préparer un aperçu</button>
+<div class="preview" id="preview"><div class="preview-placeholder">Ton aperçu apparaîtra ici.<br>Décris ton idée pour commencer.</div></div>
+<p class="note">Mode démonstration : cet aperçu est une composition graphique locale, pas une image générée par un modèle IA. Aucun prompt n'est envoyé à un service.</p>
+</div>
+</section>
+
+<!-- PROMPT LAB -->
+<section class="view" id="prompts">
+<div class="welcome"><div><h1>Prompt Lab ✍️</h1><p>Apprends à construire de meilleurs prompts.</p></div></div>
+<div class="studio">
+<label>SUJET</label><input id="pSubject" class="search" style="margin:0" placeholder="Ex : une planète inconnue">
+<label>AMBIANCE</label><select id="pMood"><option>cinématique et mystérieuse</option><option>joyeuse et colorée</option><option>futuriste et technologique</option><option>réaliste et naturelle</option><option>fantastique et épique</option></select>
+<label>STYLE VISUEL</label><select id="pStyle"><option>illustration numérique détaillée</option><option>photographie réaliste</option><option>animation 3D</option><option>anime</option><option>peinture artistique</option></select>
+<label>ÉLÉMENTS</label><textarea id="pDetails" placeholder="Lumière, décor, couleurs, objets..."></textarea>
+<button class="primary" onclick="buildPrompt()">✨ Construire mon prompt</button>
+<div id="promptResult"></div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section class="view" id="projects">
+<div class="welcome"><div><h1>Projects 🚀</h1><p>Des idées de projets pratiques pour découvrir l'IA.</p></div></div>
+<div class="lesson-list">
+<div class="lesson-item"><h3>🎨 Projet 01 — Imaginer un monde</h3><p>Inventer un univers, ses lieux, ses personnages et préparer une collection d'images cohérentes.</p></div>
+<div class="lesson-item"><h3>📱 Projet 02 — Mini campagne sociale</h3><p>Imaginer un thème, trois publications, une affiche et un message pour un public.</p></div>
+<div class="lesson-item"><h3>📖 Projet 03 — Créer une histoire</h3><p>Écrire un début, un problème, des personnages et une fin avec l'aide d'un assistant IA.</p></div>
+<div class="lesson-item"><h3>🔬 Projet 04 — Explorer un sujet</h3><p>Utiliser l'IA pour explorer un sujet, puis vérifier les informations avec des sources fiables.</p></div>
+</div>
+</section>
+
+<!-- TOOLS -->
+<section class="view" id="tools">
+<div class="welcome"><div><h1>AI Tools 🧰</h1><p>Des outils à découvrir. Les offres gratuites peuvent évoluer.</p></div></div>
+<div class="tools">
+<div class="tool"><div class="tool-icon">💬</div><div><h3>ChatGPT</h3><p>Assistant, idées, apprentissage et écriture.</p></div></div>
+<div class="tool"><div class="tool-icon">🎨</div><div><h3>Canva</h3><p>Design graphique et création visuelle.</p></div></div>
+<div class="tool"><div class="tool-icon">🖼️</div><div><h3>Microsoft Designer</h3><p>Création graphique assistée par IA.</p></div></div>
+<div class="tool"><div class="tool-icon">🎬</div><div><h3>CapCut</h3><p>Montage vidéo et outils créatifs.</p></div></div>
+<div class="tool"><div class="tool-icon">🔎</div><div><h3>Perplexity</h3><p>Recherche et exploration de sujets.</p></div></div>
+<div class="tool"><div class="tool-icon">🧪</div><div><h3>Hugging Face</h3><p>Découverte de modèles et démonstrations IA.</p></div></div>
+</div>
+</section>
+
+</div>
+<footer>AI LAB FREE · LEARNING & CREATIVITY · 2026</footer>
+</div>
+</div>
+
+<!-- COURSE MODAL -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+<div class="modal-box">
+<button class="modal-close" onclick="closeModal()">✕</button>
+<div id="modalContent"></div>
+</div>
+</div>
+
+<script>
+const views=["dashboard","academy","image","prompts","projects","tools"];
+function showView(id,btn){
+views.forEach(v=>document.getElementById(v).classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+if(btn)btn.classList.add("active");
+else document.querySelectorAll(".nav button")[views.indexOf(id)]?.classList.add("active");
+document.getElementById("breadcrumb").textContent=({dashboard:"Dashboard",academy:"Academy",image:"Image Studio",prompts:"Prompt Lab",projects:"Projects",tools:"AI Tools"})[id];
+window.scrollTo({top:0,behavior:"smooth"});
+}
+const courses={
+beginner:{title:"Comprendre l'intelligence artificielle",intro:"Les bases de l'intelligence artificielle.",lessons:[
+["1. Qu'est-ce que l'IA ?","L'intelligence artificielle est un ensemble de techniques permettant à des programmes d'effectuer des tâches qui nécessitent habituellement certaines capacités humaines : reconnaître des motifs, analyser du texte ou produire du contenu."],
+["2. Comment apprend un modèle ?","Un modèle apprend des régularités à partir de nombreux exemples. L'entraînement ajuste ses paramètres afin de produire des résultats utiles sur de nouvelles données."],
+["3. IA générative","Les IA génératives produisent de nouveaux contenus : textes, images, sons ou vidéos. Elles s'appuient sur les motifs appris lors de leur entraînement."],
+["4. Limites et vérification","Une IA peut se tromper ou inventer des informations. Vérifie les faits importants, compare les sources et ne partage pas de données privées."]]},
+imagecourse:{title:"L'art de l'image IA",intro:"Comprendre comment préparer une image visuelle.",lessons:[
+["1. Définir le sujet","Choisis clairement ce qui doit être visible : personnage, objet, paysage ou scène."],
+["2. Composer la scène","Précise l'arrière-plan, le point de vue, la lumière et les éléments importants."],
+["3. Choisir un style","Photographie, illustration, 3D, anime, peinture ou style graphique : décris un style cohérent."],
+["4. Améliorer","Change un élément à la fois. Compare les résultats et ajuste les détails de ton prompt."]]},
+social:{title:"Créer pour les réseaux sociaux",intro:"Préparer des contenus créatifs et cohérents.",lessons:[
+["1. Trouver une idée","Choisis un sujet intéressant et un public. Prépare une idée simple à comprendre."],
+["2. Construire une histoire","Une introduction, une découverte, un moment fort et une conclusion."],
+["3. Identité visuelle","Garde une palette, un style et des éléments cohérents entre les publications."],
+["4. Vérifier avant publication","Relis les textes, vérifie les informations, les droits des images et la confidentialité."]]}
+};
+function openCourse(key){
+const c=courses[key];if(!c)return;
+document.getElementById("modalContent").innerHTML=`<span class="pill">COURS GRATUIT</span><h2>${c.title}</h2><p>${c.intro}</p>`+c.lessons.map(l=>`<div class="lesson-item" style="margin-top:12px"><h3>${l[0]}</h3><p>${l[1]}</p></div>`).join("");
+document.getElementById("modal").classList.add("open");
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+document.querySelectorAll("#academyGrid .course").forEach((el,i)=>{
+el.addEventListener("click",()=>openCourse(["beginner","imagecourse","beginner","imagecourse","social","beginner"][i]||"beginner"));
+});
+function buildPrompt(){
+const s=document.getElementById("pSubject").value.trim();
+if(!s){alert("Ajoute d'abord un sujet !");return}
+const mood=document.getElementById("pMood").value;
+const style=document.getElementById("pStyle").value;
+const details=document.getElementById("pDetails").value.trim();
+const result=`Sujet : ${s}\nAmbiance : ${mood}\nStyle : ${style}\n${details?"Détails : "+details+"\n":""}Composition soignée, détails visuels cohérents, éclairage maîtrisé.`;
+document.getElementById("promptResult").innerHTML=`<div class="prompt-result" id="resultText"></div><button class="primary" style="margin-top:12px" onclick="copyPrompt()">📋 Copier le prompt</button>`;
+document.getElementById("resultText").textContent=result;
+}
+function copyPrompt(){
+const text=document.getElementById("resultText").textContent;
+navigator.clipboard.writeText(text).then(()=>alert("Prompt copié !")).catch(()=>alert(text));
+}
+function makePreview(){
+const prompt=document.getElementById("imagePrompt").value.trim();
+if(!prompt){alert("Décris d'abord ton image !");return}
+const style=document.getElementById("imageStyle").value;
+const format=document.getElementById("imageFormat").value;
+const ratio=format==="portrait"?"9:16":format==="landscape"?"16:9":"1:1";
+const width=900,height=format==="portrait"?1200:format==="landscape"?506:900;
+const safe=prompt.replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 900 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20133e"/><stop offset="0.5" stop-color="#49327a"/><stop offset="1" stop-color="#121f49"/></linearGradient><radialGradient id="r"><stop stop-color="#bb9bff" stop-opacity=".65"/><stop offset="1" stop-color="#a080ff" stop-opacity="0"/></radialGradient></defs><rect width="900" height="900" fill="url(#g)"/><circle cx="680" cy="240" r="300" fill="url(#r)"/><circle cx="690" cy="260" r="130" fill="#a78bfa" opacity=".18"/><circle cx="690" cy="260" r="105" fill="#8fb8ff" opacity=".16"/><g fill="#fff" opacity=".65">${Array.from({length:90},(_,i)=>`<circle cx="${(i*137+31)%900}" cy="${(i*83+57)%900}" r="${i%3===0?2:1}"/>`).join("")}</g><text x="65" y="660" fill="#c4b5fd" font-family="Arial" font-size="24" letter-spacing="6">${style.toUpperCase()}</text><foreignObject x="65" y="685" width="770" height="170"><div xmlns="http://www.w3.org/1999/xhtml" style="color:white;font-family:Arial;font-size:42px;font-weight:bold;line-height:1.2;overflow-wrap:anywhere">${safe}</div></foreignObject><text x="65" y="860" fill="#c4b5fd" font-family="Arial" font-size="18">AI LAB FREE · CONCEPT PREVIEW</text></svg>`;
+const blob=new Blob([svg],{type:"image/svg+xml;charset=utf-8"});
+const url=URL.createObjectURL(blob);
+const preview=document.getElementById("preview");
+preview.innerHTML=`<img alt="Aperçu graphique de ton idée" src="${url}"><br><a class="primary" style="display:inline-block;margin-top:14px;text-decoration:none" href="${url}" download="ai-lab-preview.svg">⬇ Enregistrer l'aperçu</a>`;
+}
+document.getElementById("courseSearch").addEventListener("input",e=>{
+const q=e.target.value.toLowerCase();
+document.querySelectorAll("#academyGrid .course").forEach(c=>{
+c.style.display=c.dataset.search.includes(q)?"":"none";
+});
+});
+</script>
+</body>
+</html>
